@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity 3: Sort the Entered Array</title>
+</head>
+<body>
+
+    <h2>Activity 3: Sort the Entered Array</h2>
+
+    <label>Enter Array Size: </label>
+    <input type="number" id="arraySize">
+    <button onclick="createArray()">Enter Array Size</button>
+
+    <br><br>
+
+    <button onclick="sortArray()">Sort Array</button>
+
+    <hr>
+
+    <p id="output"></p>
+
+    <script>
+        let originalValues = [];
+
+        function createArray() {
+            let size = parseInt(document.getElementById("arraySize").value);
+            if (!size || size <= 0) return;
+
+            originalValues = [];
+
+            for (let i = 0; i < size; i++) {
+                let inputVal = prompt("Enter value for Index " + i);
+                if (!inputVal) {
+                    i--;
+                    continue;
+                }
+                originalValues[originalValues.length] = Number(inputVal);
+            }
+
+            let indexCells = "";
+            let valueCells = "";
+            for (let i = 0; i < originalValues.length; i++) {
+                indexCells = indexCells + "<td align='center'>" + i + "</td>";
+                valueCells = valueCells + "<td align='center'>" + originalValues[i] + "</td>";
+            }
+
+            document.getElementById("output").innerHTML = 
+                "<h3>Original Array</h3>" +
+                "<table border='1' cellpadding='3' cellspacing='0'>" +
+                "<tr><td><b>Index</b></td>" + indexCells + "</tr>" +
+                "<tr><td><b>Value</b></td>" + valueCells + "</tr>" +
+                "</table>";
+        }
+
+        function sortArray() {
+            if (originalValues.length === 0) {
+                alert("Please click 'Enter Array Size' and input array values first!");
+                return;
+            }
+
+            let sortedValues = [];
+            for (let i = 0; i < originalValues.length; i++) {
+                sortedValues[i] = originalValues[i];
+            }
+
+            for (let i = 0; i < sortedValues.length - 1; i++) {
+                for (let j = 0; j < sortedValues.length - 1 - i; j++) {
+                    if (sortedValues[j] > sortedValues[j + 1]) {
+                        let temp = sortedValues[j];
+                        sortedValues[j] = sortedValues[j + 1];
+                        sortedValues[j + 1] = temp;
+                    }
+                }
+            }
+
+            let origIndexCells = "";
+            let origValueCells = "";
+            let sortedIndexCells = "";
+            let sortedValueCells = "";
+
+            for (let i = 0; i < originalValues.length; i++) {
+                origIndexCells = origIndexCells + "<td align='center'>" + i + "</td>";
+                origValueCells = origValueCells + "<td align='center'>" + originalValues[i] + "</td>";
+                sortedIndexCells = sortedIndexCells + "<td align='center'>" + i + "</td>";
+                sortedValueCells = sortedValueCells + "<td align='center'>" + sortedValues[i] + "</td>";
+            }
+
+            document.getElementById("output").innerHTML = 
+                "<h3>Original Array</h3>" +
+                "<table border='1' cellpadding='3' cellspacing='0'>" +
+                "<tr><td><b>Index</b></td>" + origIndexCells + "</tr>" +
+                "<tr><td><b>Value</b></td>" + origValueCells + "</tr>" +
+                "</table><br>" +
+                "<h3>Sorted Array</h3>" +
+                "<table border='1' cellpadding='3' cellspacing='0'>" +
+                "<tr><td><b>Index</b></td>" + sortedIndexCells + "</tr>" +
+                "<tr><td><b>Value</b></td>" + sortedValueCells + "</tr>" +
+                "</table>";
+        }
+    </script>
+
+</body>
+</html>
